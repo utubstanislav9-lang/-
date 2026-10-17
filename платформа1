@@ -1,0 +1,16 @@
+from customtkinter import *
+
+root = CTk()
+root.title("Task2")
+root.geometry("400x400")
+
+textbox = CTkTextbox(root, width=380, height=280)
+textbox.pack(pady=10)
+
+entry = CTkEntry(root, width=380)
+entry.pack(pady=10)
+
+button = CTkButton(root, text="Клік", width=380)
+button.pack()
+
+root.mainloop()

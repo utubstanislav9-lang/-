@@ -1,0 +1,58 @@
+from customtkinter import *
+import random
+import string
+
+root = CTk()
+root.title("Password Generator")
+root.geometry("450x550")
+
+def generate_password():
+    password_entry.delete(0, 'end')
+    
+    char_pool = ""
+    if cb_lowercase.get() == 1:
+        char_pool += string.ascii_lowercase
+    if cb_uppercase.get() == 1:
+        char_pool += string.ascii_uppercase
+    if cb_digits.get() == 1:
+        char_pool += string.digits
+    if cb_symbols.get() == 1:
+        char_pool += "!@#$%^&*()_+-=[]{}|;:,.<>?"
+        
+    if not char_pool:
+        password_entry.insert(0, "Ошибка: выберите категории!")
+        return
+        
+    length = int(slider.get())
+    password = "".join(random.choice(char_pool) for _ in range(length))
+    password_entry.insert(0, password)
+
+def update_length_label(value):
+    length_label.configure(text=f"Длина пароля: {int(value)}")
+
+password_entry = CTkEntry(root, width=400, justify="center")
+password_entry.pack(pady=20)
+
+cb_lowercase = CTkCheckBox(root, text="Малые буквы (a-z)")
+cb_lowercase.pack(pady=10, anchor="w", padx=25)
+
+cb_uppercase = CTkCheckBox(root, text="Большие буквы (A-Z)")
+cb_uppercase.pack(pady=10, anchor="w", padx=25)
+
+cb_digits = CTkCheckBox(root, text="Цифры (0-9)")
+cb_digits.pack(pady=10, anchor="w", padx=25)
+
+cb_symbols = CTkCheckBox(root, text="Специальные символы (!@#$...)")
+cb_symbols.pack(pady=10, anchor="w", padx=25)
+
+length_label = CTkLabel(root, text="Длина пароля: 12")
+length_label.pack(pady=(15, 0))
+
+slider = CTkSlider(root, from_=4, to=64, number_of_steps=60, command=update_length_label)
+slider.pack(pady=10, fill="x", padx=25)
+slider.set(12)
+
+generate_btn = CTkButton(root, text="Generate", command=generate_password)
+generate_btn.pack(pady=25)
+
+root.mainloop()

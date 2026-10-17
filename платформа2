@@ -1,0 +1,18 @@
+from customtkinter import *
+
+root = CTk()
+root.title("First App")
+root.geometry("400x300")
+root.configure(fg_color="yellow")
+
+label = CTkLabel(
+    root, 
+    text="Hello Logika!", 
+    width=400, 
+    height=150, 
+    fg_color="blue", 
+    font=("Arial", 20, "bold")
+)
+label.pack()
+
+root.mainloop()

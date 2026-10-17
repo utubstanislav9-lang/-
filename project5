@@ -1,0 +1,76 @@
+import tkinter as tk
+from tkinter import messagebox
+
+
+def login():
+    e = entry_1.get()
+    p = entry_2.get()
+    if e == "" or p == "":
+        messagebox.showerror("Помилка", "Заповніть усі поля!")
+    else:
+        messagebox.showinfo("Успіх", "Ви успішно увійшли!")
+
+
+root = tk.Tk()
+root.title("Вікно авторизації")
+root.geometry("600x400")
+root.resizable(False, False)
+
+left_frame = tk.Frame(root, bg="navy", width=250, height=400)
+left_frame.pack(side="left", fill="y")
+
+label_logo = tk.Label(
+    left_frame, text="Logika", font=("Arial", 20, "bold"), fg="white", bg="navy"
+)
+label_logo.pack(pady=50)
+
+label_info = tk.Label(
+    left_frame,
+    text="Ласкаво просимо до програми!",
+    font=("Arial", 10),
+    fg="white",
+    bg="navy",
+    wraplength=180,
+)
+label_info.pack(pady=20)
+
+right_frame = tk.Frame(root, bg="white", width=350, height=400)
+right_frame.pack(side="right", fill="both", expand=True)
+
+label_title = tk.Label(
+    right_frame, text="Вхід в акаунт", font=("Arial", 16, "bold"), bg="white"
+)
+label_title.pack(pady=30)
+
+label_1 = tk.Label(right_frame, text="Email:", font=("Arial", 10), bg="white")
+label_1.pack(anchor="w", padx=50)
+
+entry_1 = tk.Entry(right_frame, font=("Arial", 10), width=30)
+entry_1.pack(pady=5, padx=50, anchor="w")
+
+label_2 = tk.Label(right_frame, text="Пароль:", font=("Arial", 10), bg="white")
+label_2.pack(anchor="w", padx=50)
+
+entry_2 = tk.Entry(right_frame, font=("Arial", 10), width=30, show="*")
+entry_2.pack(pady=5, padx=50, anchor="w")
+
+label_3 = tk.Label(
+    right_frame, text="Додаткове поле:", font=("Arial", 10), bg="white"
+)
+label_3.pack(anchor="w", padx=50, pady=(10, 0))
+
+entry_3 = tk.Entry(right_frame, font=("Arial", 10), width=30)
+entry_3.pack(pady=5, padx=50, anchor="w")
+
+btn = tk.Button(
+    right_frame,
+    text="Увійти",
+    font=("Arial", 10, "bold"),
+    bg="orange",
+    fg="white",
+    width=15,
+    command=login,
+)
+btn.pack(pady=30)
+
+root.mainloop()

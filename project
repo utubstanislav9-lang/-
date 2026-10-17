@@ -1,0 +1,14 @@
+from customtkinter import *
+
+window = CTk()
+text = CTkLabel(window, text="Hello logika!", text_color="#000000", font=("Arial", 20))
+text.pack()
+btn = CTkButton(window, text="войти")
+btn.pack()
+window.geometry("400x300")
+window.title("Проєкт")
+window.configure(fg_color="orange")
+
+
+
+window.mainloop()

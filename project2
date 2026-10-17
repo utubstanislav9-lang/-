@@ -1,0 +1,11 @@
+from customtkinter import *
+
+def button_adaptive():
+    window_width = win.winfo_width ()
+    btn. configure (width=window_width-120)
+    win.after(50, button_adaptive)
+
+btn = CTkbutton(win, text='Кнопка', width=300, height=100)
+btn.place(x=50, y=40)
+
+button_adaptive()

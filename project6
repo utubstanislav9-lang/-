@@ -1,0 +1,68 @@
+import customtkinter as ctk
+import random
+import string
+
+ctk.set_appearance_mode("System")
+ctk.set_default_color_theme("blue")
+
+class PasswordGeneratorApp(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+
+        self.title("Генератор паролей")
+        self.geometry("400x400")  # Немного увеличили высоту, чтобы всё красиво помещалось
+        self.resizable(False, False)
+
+        self.label_title = ctk.CTkLabel(self, text="Генератор паролей", font=ctk.CTkFont(size=18, weight="bold"))
+        self.label_title.pack(pady=15)
+
+        self.label_length = ctk.CTkLabel(self, text="Длина пароля: 12", font=ctk.CTkFont(size=14))
+        self.label_length.pack(pady=5)
+        
+        self.slider = ctk.CTkSlider(self, from_=6, to=30, number_of_steps=24, command=self.update_length_label)
+        self.slider.set(12)
+        self.slider.pack(pady=5, padx=30, fill="x")
+
+        self.cb_digits = ctk.CTkCheckBox(self, text="Использовать цифры (0-9)")
+        self.cb_digits.pack(pady=5, anchor="w", padx=40)
+        self.cb_digits.select()
+
+        self.cb_symbols = ctk.CTkCheckBox(self, text="Использовать спецсимволы (!@#...)")
+        self.cb_symbols.pack(pady=5, anchor="w", padx=40)
+        self.cb_symbols.select()
+
+        self.entry_password = ctk.CTkEntry(self, width=300, font=ctk.CTkFont(size=14), justify="center")
+        self.entry_password.pack(pady=15)
+
+        self.btn_generate = ctk.CTkButton(self, text="Сгенерировать", font=ctk.CTkFont(weight="bold"), command=self.generate_password)
+        self.btn_generate.pack(pady=10)
+
+        # Новая кнопка-вкладка, которая заблокирована и не нажимается
+        self.btn_nickname_gen = ctk.CTkButton(
+            self, 
+            text="Генератор ников", 
+            font=ctk.CTkFont(weight="bold"), 
+            state="disabled"  # Этот параметр отключает кликабельность кнопки
+        )
+        self.btn_nickname_gen.pack(pady=5)
+
+    def update_length_label(self, value):
+        self.label_length.configure(text=f"Длина пароля: {int(value)}")
+
+    def generate_password(self):
+        length = int(self.slider.get())
+        characters = string.ascii_letters
+        
+        if self.cb_digits.get():
+            characters += string.digits
+        if self.cb_symbols.get():
+            characters += string.punctuation
+
+        password = "".join(random.choice(characters) for _ in range(length))
+        
+        self.entry_password.delete(0, ctk.END)
+        self.entry_password.insert(0, password)
+
+if __name__ == "__main__":
+    app = PasswordGeneratorApp()
+    app.mainloop()

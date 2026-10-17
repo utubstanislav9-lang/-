@@ -1,0 +1,57 @@
+import random
+import tkinter as tk
+
+
+def on_yes():
+    win_yes = tk.Toplevel(root)
+    win_yes.title("Дякуємо!")
+    win_yes.geometry("200x100")
+    win_yes.resizable(False, False)
+
+    label = tk.Label(
+        win_yes, text="Дуже приємно чути!!!", font=("Arial", 12, "bold")
+    )
+    label.pack(expand=True)
+
+
+def move_no(event):
+    window_width = root.winfo_width()
+    window_height = root.winfo_height()
+
+    btn_width = btn_no.winfo_width()
+    btn_height = btn_no.winfo_height()
+
+    max_x = window_width - btn_width
+    max_y = window_height - btn_height
+
+    new_x = random.randint(10, max(10, max_x - 10))
+    new_y = random.randint(10, max(10, max_y - 10))
+
+    btn_no.place(x=new_x, y=new_y)
+
+
+root = tk.Tk()
+root.title("Соціальне опитування")
+root.geometry("400x300")
+root.resizable(False, False)
+
+lbl_question = tk.Label(
+    root,
+    text="Чи подобається тобі навчатися\nу школі Logika?",
+    font=("Arial", 14, "bold"),
+    justify="center",
+)
+lbl_question.pack(pady=40)
+
+btn_yes = tk.Button(
+    root, text="Так", font=("Arial", 12), width=10, command=on_yes
+)
+btn_yes.place(x=80, y=200)
+
+btn_no = tk.Button(root, text="Ні", font=("Arial", 12), width=10)
+btn_no.place(x=220, y=200)
+
+btn_no.bind("<Enter>", move_no)
+btn_no.bind("<Button-1>", move_no)
+
+root.mainloop()

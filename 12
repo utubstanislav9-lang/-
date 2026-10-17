@@ -1,0 +1,25 @@
+from customtkinter import *
+from PIL import Image
+from PIL import Image, ImageFilter, ImageEnhance
+
+image = Image.open('19.30.24.jpg')
+image = image.rotate(360)
+image_ctk = CTkImage(light_image=image, size=(1260, 720))
+image = image.convert('L')
+image = image. filter(ImageFilter.BLUR)
+enhancer = ImageEnhance.Brightness(image)
+image = enhancer.enhance(1)
+
+
+def convertimage():
+    global image
+    image = image.convert('L')
+    return image
+
+
+window = CTk()
+btn = CTkButton(window, command=convertimage)
+btn.pack()
+label = CTkLabel(window, image=image_ctk, text='')
+label.pack()
+window.mainloop()
